@@ -84,7 +84,7 @@ export function FormularioAlumno({ onStudentAdded, api }) {
             {...register("grupo", {
               required: "El grupo es obligatorio",
               maxLength: {
-                value: 4,
+                value: 10,
                 message: "El grupo no puede tener más de 4 caracteres",
               },
               pattern: {

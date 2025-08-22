@@ -41,7 +41,10 @@
   color: #888;
 }
 
-.bloque1 {
+body {
+  margin: 0;
   display: flex;
-  flex-wrap: wrap;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
