@@ -1,21 +1,35 @@
-import { useState, useCallback } from 'react';
-import { FormularioAlumno } from './Components/FormularioAlumno';
-import ListaAlumnos from './Components/ListaAlumnos';
-import { api } from './assets/services/api';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { LoginPage } from "./pages/LoginPage";
+import { ProfilePage } from "./pages/ProfilePage";
+import { PrivateRoute } from "./PrivateRoute";
 
-export default function App() {
-
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
-
-  const handleRefresh = useCallback(() => {
-    setRefreshTrigger(prev => prev + 1);
-  }, []);
-
+export const App = () => {
   return (
-    <>
-      <h1>Sistema de Gestión de Alumnos</h1>
-      <FormularioAlumno onStudentAdded={handleRefresh} api={api} />
-      <ListaAlumnos refreshTrigger={refreshTrigger} onStudentDeleted={handleRefresh} api={api} />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+        path="/profile"
+        element={
+        <ProfilePage />
+        } 
+        />
+
+        {/* Ruta privada */}
+
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};

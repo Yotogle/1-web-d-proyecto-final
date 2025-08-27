@@ -1,16 +1,17 @@
+
 import { Router } from "express";
 import Alumno from "../models/alumno.model.js";
 
 const router = Router()
 
-//Crear el alumno
-router.post('/', async (req,res) => {
-    const nuevoAlumno = new Alumno(req.body)
-    await nuevoAlumno.save()
-    res.json(nuevoAlumno)
+//Crear alumno
+router.post('/', async (req, res) => {
+  const nuevoAlumno = new Alumno(req.body)
+  await nuevoAlumno.save()
+  res.json(nuevoAlumno)
 })
 
-//obtener todos los alumnos
+//Obtener todos los alumnos
 router.get('/', async (req, res) => {
   const alumnos = await Alumno.find()
   res.json(alumnos)
@@ -27,4 +28,5 @@ router.delete('/:id', async (req, res) => {
   await Alumno.findByIdAndDelete(req.params.id)
   res.json({message: "Alumno eliminado"})
 })
+
 export default router
