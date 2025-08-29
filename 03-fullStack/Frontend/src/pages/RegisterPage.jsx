@@ -1,13 +1,24 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { registerRequest } from "../api/auth";
+import {z}  from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+const registerResolver = z.object({
+  username: z.string().min(1, "el username es requerido"),
+  email: z.email("El e-mail no es valido"),
+  password: z.string().min(6,"El password debe tener minimo 6 caracteres")
+})
+
 
 export const RegisterPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(registerResolver)
+  });
 
   const navigate = useNavigate()
 
